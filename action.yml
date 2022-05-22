@@ -1,11 +1,19 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'homebrew-update-action'
+description: 'Homebrew update formula file with your homebrew tap.'
+author: 'browng-io'
 inputs:
-  milliseconds: # change this
+  token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Personal github token'
+  tap_repo:
+    required: true
+    description: 'Homebrew tap repository'
+  template_path:
+    required: true
+    description: 'Formula file path in the homebrew tap repository.'
+  src_repo:
+    required: true
+    description: 'Your source application repository.'
 runs:
   using: 'node16'
   main: 'dist/index.js'
