@@ -1,13 +1,13 @@
 import axios from 'axios'
 import {createHash} from 'crypto'
-import { ERROR } from './constant'
+import CONSTANT from './constant'
 
 export default async function getChunk(
   url: string,
   algorithm = 'sha256'
 ): Promise<any> {
   if(!url) {
-    return ERROR.URL_EMPTY
+    return CONSTANT.URL_EMPTY
   }
   const response = await axios({
     method: 'GET',

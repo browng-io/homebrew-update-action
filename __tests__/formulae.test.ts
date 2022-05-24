@@ -1,5 +1,5 @@
 import {readFormulae} from './../src/modules/formulae'
-import {ERROR} from './../src/modules/constant'
+import CONSTANT from './../src/modules/constant'
 import {expect, test} from '@jest/globals'
 import {resolve} from 'path'
 
@@ -25,7 +25,7 @@ let testcases = [
     },
     check: (err: any) => {
       expect(typeof err).toBe('string')
-      expect(err).toEqual(ERROR.FILE_PATH_EMPTY)
+      expect(err).toEqual(CONSTANT.FILE_PATH_EMPTY)
     }
   },
   {
@@ -37,7 +37,7 @@ let testcases = [
     },
     check: (err: any) => {
       expect(typeof err).toBe('string')
-      expect(err).toEqual(ERROR.CANNOT_READ_FILE)
+      expect(err).toEqual(CONSTANT.CANNOT_READ_FILE)
     }
   }
 ]
