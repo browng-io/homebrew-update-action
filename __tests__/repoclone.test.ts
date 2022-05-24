@@ -12,6 +12,36 @@ let testCases = [
         check: (promises) => {
             expect(promises).resolves.toEqual(CONSTANT.CLONE_SUCCESS)
         }
+    },
+    {
+      name: "invalid url ''",
+      stub: () => {
+          let url = ''
+          return repositoryClone(url)
+      },
+      check: (promises) => {
+          expect(promises).rejects.toEqual(CONSTANT.URL_EMPTY)
+      }
+    },
+    {
+      name: "invalid url null",
+      stub: () => {
+          let url = null
+          return repositoryClone(url)
+      },
+      check: (promises) => {
+          expect(promises).rejects.toEqual(CONSTANT.URL_EMPTY)
+      }
+    },
+    {
+      name: "invalid url undefined",
+      stub: () => {
+          let url = undefined
+          return repositoryClone(url)
+      },
+      check: (promises) => {
+          expect(promises).rejects.toEqual(CONSTANT.URL_EMPTY)
+      }
     }
 ]
 
