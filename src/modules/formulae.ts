@@ -1,5 +1,5 @@
 import handlebars from 'handlebars'
-import {ERROR} from './constant'
+import CONSTANT from './constant'
 import {readFile} from 'fs-extra'
 
 function updateFormulae(): boolean {
@@ -12,13 +12,13 @@ function updateFormulae(): boolean {
  */
 async function readFormulae(path_file: string): Promise<any> {
   if (!path_file) {
-    return ERROR.FILE_PATH_EMPTY
+    return CONSTANT.FILE_PATH_EMPTY
   }
   try {
     const templateString = (await readFile(path_file)).toString()
     return handlebars.compile(templateString)
   } catch (error) {
-    return ERROR.CANNOT_READ_FILE
+    return CONSTANT.CANNOT_READ_FILE
   }
 }
 

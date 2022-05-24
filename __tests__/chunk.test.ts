@@ -1,7 +1,7 @@
 import getChunk from './../src/modules/chunk';
 import {expect, test} from '@jest/globals'
 import { AxiosError } from 'axios';
-import { ERROR } from '../src/modules/constant';
+import CONSTANT from '../src/modules/constant';
 
 let testCases = [
     {
@@ -29,7 +29,7 @@ let testCases = [
             return getChunk('').then(data => data).catch(err => err)
         },
         check: (data) => {
-            expect(data).toEqual(ERROR.URL_EMPTY)
+            expect(data).toEqual(CONSTANT.URL_EMPTY)
         }
     }
 ]
