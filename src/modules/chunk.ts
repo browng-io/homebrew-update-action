@@ -6,7 +6,7 @@ export default async function getChunk(
   url: string,
   algorithm = 'sha256'
 ): Promise<any> {
-  if(!url) {
+  if (!url) {
     return CONSTANT.URL_EMPTY
   }
   const response = await axios({
