@@ -1,4 +1,4 @@
-import {readFormulae} from './../src/modules/formulae'
+import { readFormulae, updateFormulae } from './../src/modules/formulae'
 import {ERROR} from './../src/modules/constant'
 import {expect, test} from '@jest/globals'
 import {resolve} from 'path'

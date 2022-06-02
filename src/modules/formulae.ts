@@ -1,9 +1,45 @@
 import handlebars from 'handlebars'
 import {ERROR} from './constant'
 import {readFile} from 'fs-extra'
+import {getChunk} from './chunk'
+import {find} from 'lodash'
 
-function updateFormulae(): boolean {
-  return true
+async function updateFormulae(
+  template: any,
+  octokit: any,
+  repo: string
+): Promise<any> {
+  if (!repo) {
+    return ERROR.FILE_PATH_EMPTY
+  }
+  try {
+    const latestRelease = await octokit.request(
+      `GET /repos/${repo}/releases/latest`
+    )
+    const version = latestRelease.data.tag_name
+    const releaseId = latestRelease.data.id
+
+    const assets = await octokit.request(
+      `GET /repos/${repo}/releases/${releaseId}/assets`
+    )
+
+    const tarballUrl = find(assets.data, a =>
+      a.name.includes('macos')
+    ).browser_download_url
+
+    const sha256 = await getChunk(tarballUrl, 'sha256')
+
+    return {
+      formulae: template({
+        version,
+        tarballUrl,
+        sha256
+      }),
+      version
+    }
+  } catch (error) {
+    return ERROR.CANNOT_READ_FILE
+  }
 }
 /**
  * Read ruby path file

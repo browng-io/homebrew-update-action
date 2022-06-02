@@ -1,12 +1,9 @@
 import axios from 'axios'
 import {createHash} from 'crypto'
-import { ERROR } from './constant'
-
-export default async function getChunk(
-  url: string,
-  algorithm = 'sha256'
-): Promise<any> {
-  if(!url) {
+import {ERROR} from './constant'
+import {find} from 'lodash'
+async function getChunk(url: string, algorithm = 'sha256'): Promise<any> {
+  if (!url) {
     return ERROR.URL_EMPTY
   }
   const response = await axios({
@@ -29,3 +26,14 @@ export default async function getChunk(
     response.data.on('error', reject)
   })
 }
+
+async function getNameFileRuby(octokit: any, srcRepo: string): Promise<string> {
+  const contents = await octokit.request(`GET /repos/${srcRepo}/contents`)
+  const fileRuby = find(contents.data, content => {
+    const fileName = content.name.split('.')
+    return fileName[fileName.lengh - 1] === 'rb'
+  })
+  return fileRuby.name
+}
+
+export {getChunk, getNameFileRuby}
